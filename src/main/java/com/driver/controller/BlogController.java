@@ -28,19 +28,33 @@ public class BlogController {
     public ResponseEntity createBlog(@RequestParam Integer userId ,
                                            @RequestParam String title,
                                            @RequestParam String content) {
-        blogService.createAndReturnBlog(userId,title,content);
+        try{
+            blogService.createAndReturnBlog(userId,title,content);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{blogId}/add-image")
     public ResponseEntity<String> addImage(@PathVariable int blogId, @RequestParam String description, @RequestParam String dimensions) {
+        try{
             blogService.addImage(blogId,description,dimensions);
+        }catch (Exception e) {
+
+        }
             return new ResponseEntity<>("Added image successfully", HttpStatus.OK);
     }
 
     @DeleteMapping("/{blogId}")
     public ResponseEntity<Void> deleteBlog(@PathVariable int blogId) {
-        blogService.deleteBlog(blogId);
+        try{
+            blogService.deleteBlog(blogId);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

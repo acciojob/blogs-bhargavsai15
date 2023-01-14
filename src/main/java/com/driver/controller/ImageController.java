@@ -15,14 +15,21 @@ public class ImageController {
 
     @Autowired
     ImageService imageService;
+
     @Autowired
-    private ImageRepository imageRepository;
+    ImageRepository imageRepository;
 
     @PostMapping("/create")
     public ResponseEntity<Image> createAndReturn(@RequestBody Blog blog,
                                                  @RequestParam String description,
                                                  @RequestParam String dimensions) {
-        Image image = imageService.createAndReturn(blog,description,dimensions);
+        Image image=null;
+        try{
+            image = imageService.createAndReturn(blog,description,dimensions);
+        }catch (Exception e){
+
+        }
+
         return new ResponseEntity<>(image, HttpStatus.CREATED);
     }
 
@@ -34,7 +41,8 @@ public class ImageController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteImage(@PathVariable int id) {
-        imageService.deleteImage(id);
+        Image image=imageRepository.findById(id).get();
+        imageService.deleteImage(image);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

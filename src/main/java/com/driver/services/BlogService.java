@@ -35,15 +35,19 @@ public class BlogService {
         //create a blog at the current time
         Date currentTime=new Date();
         User user=userRepository1.findById(userId).get();
+
         Blog blog=new Blog(title,content,currentTime);
         //updating the blog details
         blog.setUser(user);
         List<Blog> currentbBlogsList=user.getBlogList();
+        if(currentbBlogsList==null){
+            currentbBlogsList=new ArrayList<>();
+        }
         currentbBlogsList.add(blog);
         user.setBlogList(currentbBlogsList);
-
         //Updating the userInformation and changing its blogs
         userRepository1.save(user);
+        blogRepository1.save(blog);
 
     }
 
@@ -56,7 +60,13 @@ public class BlogService {
     public void addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog after creating it
         Blog blog=blogRepository1.findById(blogId).get();
+        if(blog==null){
+            return;
+        }
         List<Image> imageList=blog.getImageList();
+        if(imageList==null){
+            imageList=new ArrayList<>();
+        }
 
         Image image=new Image(description,dimensions);
 
