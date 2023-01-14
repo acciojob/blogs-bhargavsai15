@@ -54,7 +54,8 @@ public class BlogController {
         }catch (Exception e) {
 
         }
-            return new ResponseEntity<>("Added image successfully", HttpStatus.OK);
+
+        return new ResponseEntity<>("Added image successfully", HttpStatus.OK);
     }
 
     @DeleteMapping("/{blogId}")
