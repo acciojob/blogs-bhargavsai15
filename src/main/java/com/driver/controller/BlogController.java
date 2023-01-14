@@ -24,12 +24,13 @@ public class BlogController {
     @GetMapping
     public ResponseEntity<Integer> getAllBlogs() {
         int countOfBlogs = 0;
-        List<Blog> blogList=blogRepository.findAll();
-        if(blogList==null){
+        List<Blog> blogList= blogService.showBlogs();
+        if(blogList==null || blogList.size()==0){
             countOfBlogs=0;
         }else {
             countOfBlogs=blogList.size();
         }
+
         return new ResponseEntity<>(countOfBlogs, HttpStatus.OK);
     }
 
