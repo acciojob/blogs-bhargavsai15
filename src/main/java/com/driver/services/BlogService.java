@@ -26,27 +26,51 @@ public class BlogService {
 
     public List<Blog> showBlogs(){
         //find all blogs
-
+        List<Blog> blogList=new ArrayList<>();
+        blogList=blogRepository1.findAll();
+        return blogList;
     }
 
     public void createAndReturnBlog(Integer userId, String title, String content) {
         //create a blog at the current time
-
+        Date currentTime=new Date();
+        User user=userRepository1.findById(userId).get();
+        Blog blog=new Blog(title,content,currentTime);
         //updating the blog details
+        blog.setUser(user);
+        List<Blog> currentbBlogsList=user.getBlogList();
+        currentbBlogsList.add(blog);
+        user.setBlogList(currentbBlogsList);
 
         //Updating the userInformation and changing its blogs
+        userRepository1.save(user);
 
     }
 
     public Blog findBlogById(int blogId){
-        //find a blog
+           //find a blog
+        Blog blog=blogRepository1.findById(blogId).get();
+        return blog;
     }
 
     public void addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog after creating it
+        Blog blog=blogRepository1.findById(blogId).get();
+        List<Image> imageList=blog.getImageList();
+
+        Image image=new Image(description,dimensions);
+
+        image.setBlog(blog);
+
+        imageList.add(image);
+
+        blog.setImageList(imageList);
+
+        blogRepository1.save(blog);
     }
 
     public void deleteBlog(int blogId){
         //delete blog and corresponding images
+        blogRepository1.deleteById(blogId);
     }
 }
