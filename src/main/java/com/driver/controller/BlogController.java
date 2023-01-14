@@ -21,16 +21,16 @@ public class BlogController {
 
     @Autowired
     BlogRepository blogRepository;
+
     @GetMapping
     public ResponseEntity<Integer> getAllBlogs() {
         int countOfBlogs = 0;
-        List<Blog> blogList= blogService.showBlogs();
-        if(blogList==null || blogList.size()==0){
-            countOfBlogs=0;
-        }else {
+        try{
+            List<Blog> blogList= blogService.showBlogs();
             countOfBlogs=blogList.size();
+        }catch (Exception e){
+            System.out.println(e);
         }
-
         return new ResponseEntity<>(countOfBlogs, HttpStatus.OK);
     }
 

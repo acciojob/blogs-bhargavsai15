@@ -32,24 +32,7 @@ public class UserService {
     }
 
     public void updateUser(User user){
-        User user1=userRepository3.findById(user.getId()).get();
-        if(user.getUsername()!=null) {
-            user1.setUsername(user.getUsername());
-        }
-        if(user.getPassword()!= null) {
-            user1.setPassword(user.getPassword());
-        }
-        if(user.getFirstName()!=null) {
-            user1.setFirstName(user.getFirstName());
-        }
-        if(user.getLastName()!=null) {
-            user1.setLastName(user.getLastName());
-        }
-        if(user.getBlogList()!=null) {
-            user1.setBlogList(user.getBlogList());
-        }
-
-        userRepository3.save(user1);
+        userRepository3.save(user);
     }
 
     public User findUserByUsername(String username){

@@ -30,7 +30,7 @@ public class User{
 
     
     public List<Blog> getBlogList() {
-        return blogList;
+        return this.blogList;
     }
 
     public void setBlogList(List<Blog> blogList) {

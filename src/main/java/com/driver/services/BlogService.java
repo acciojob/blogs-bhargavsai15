@@ -26,13 +26,14 @@ public class BlogService {
 
     public List<Blog> showBlogs(){
         //find all blogs
-        List<Blog> blogList=new ArrayList<>();
+        List<Blog> blogList;
         blogList=blogRepository1.findAll();
         return blogList;
     }
 
     public void createAndReturnBlog(Integer userId, String title, String content) {
         //create a blog at the current time
+
         Date currentTime=new Date();
         User user=userRepository1.findById(userId).get();
 
