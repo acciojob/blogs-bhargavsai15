@@ -49,7 +49,7 @@ public class ImageService {
 
         String[] str=screenDimensions.split("X");
         int num1=Integer.parseInt(str[0]);
-        int num2=Integer.parseInt(str[2]);
+        int num2=Integer.parseInt(str[1]);
 
         return (num1/t1)*(num2*t2);
     }
