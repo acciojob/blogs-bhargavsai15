@@ -36,15 +36,26 @@ public class ImageController {
     @GetMapping("/countImagesInScreen/{id}/{screenDimensions}")
     public ResponseEntity<Integer> countImagesInScreen(@PathVariable int id, @PathVariable String screenDimensions){
         int count = 0;
-        Image image=imageRepository.findById(id).get();
-        count=imageService.countImagesInScreen(image,screenDimensions);
+        try{
+            Image image=imageRepository.findById(id).get();
+            count=imageService.countImagesInScreen(image,screenDimensions);
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return new ResponseEntity<>(count, HttpStatus.OK);
+
+
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteImage(@PathVariable int id) {
-        Image image=imageRepository.findById(id).get();
-        imageService.deleteImage(image);
+        try{
+            Image image=imageRepository.findById(id).get();
+            imageService.deleteImage(image);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

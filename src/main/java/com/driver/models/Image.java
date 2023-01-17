@@ -60,7 +60,7 @@ public class Image{
         this.dimensions = dimensions;
     }
 
-    public Image(String description, String dimensions) {
+    public Image(Blog blog,String description, String dimensions) {
         this.description = description;
         this.dimensions = dimensions;
     }

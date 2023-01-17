@@ -50,7 +50,12 @@ public class BlogService {
 
     public Blog findBlogById(int blogId){
            //find a blog
-        Blog blog=blogRepository1.findById(blogId).get();
+        Blog blog=null;
+        try{
+            blog=blogRepository1.findById(blogId).get();
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return blog;
     }
 
@@ -72,9 +77,13 @@ public class BlogService {
 
     public void deleteBlog(int blogId){
         //delete blog and corresponding images
-        Blog blog=blogRepository1.findById(blogId).get();
-        if(blog!=null) {
-            blogRepository1.delete(blog);
+        try{
+            if(blogRepository1.findById(blogId).get()==null){
+                return;
+            }
+            blogRepository1.deleteById(blogId);
+        }catch (Exception e){
+            System.out.println(e);
         }
     }
 

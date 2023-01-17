@@ -19,8 +19,6 @@ public class BlogController {
     @Autowired
     BlogService blogService;
 
-    @Autowired
-    BlogRepository blogRepository;
 
     @GetMapping
     public ResponseEntity<Integer> getAllBlogs() {
@@ -53,7 +51,7 @@ public class BlogController {
         try{
             blogService.addImage(blogId,description,dimensions);
         }catch (Exception e) {
-
+            System.out.println(e);
         }
 
         return new ResponseEntity<>("Added image successfully", HttpStatus.OK);

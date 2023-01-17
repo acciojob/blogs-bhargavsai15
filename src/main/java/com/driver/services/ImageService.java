@@ -19,9 +19,13 @@ public class ImageService {
 
     public Image createAndReturn(Blog blog, String description, String dimensions){
         //create an image based on given parameters and add it to the imageList of given blog
-        Image image=new Image(description,dimensions);
+        Image image=new Image(blog,description,dimensions);
         image.setBlog(blog);
+        List<Image> imageList=blog.getImageList();
+        imageList.add(image);
+        blog.setImageList(imageList);
         imageRepository2.save(image);
+        blogRepository.save(blog);
         return image;
     }
 
@@ -36,6 +40,9 @@ public class ImageService {
     public int countImagesInScreen(Image image, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
         //In case the image is null, return 0
+        if(image==null){
+            return 0;
+        }
         String[] dimensions=image.getDimensions().split("X");
         int t1=Integer.parseInt(dimensions[0]);
         int t2=Integer.parseInt(dimensions[1]);
