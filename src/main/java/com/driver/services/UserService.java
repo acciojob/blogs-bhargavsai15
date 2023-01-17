@@ -19,6 +19,7 @@ public class UserService {
 
     public void createUser(User user){
         try{
+
             userRepository3.save(user);
         }catch(Exception e){
             System.out.println(e);
@@ -27,12 +28,33 @@ public class UserService {
     }
 
     public void deleteUser(int userId){
-        if(userRepository3.findById(userId).get()!=null)
-            userRepository3.deleteById(userId);
+        try{
+            if(userRepository3.findById(userId).get()!=null)
+                userRepository3.deleteById(userId);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public void updateUser(User user){
-        userRepository3.save(user);
+
+        try{
+            User user1=userRepository3.findById(user.getId()).get();
+            if(user.getUsername()!=null){
+                user1.setUsername(user.getUsername());
+            }
+            if(user.getPassword()!=null){
+                user1.setPassword(user.getPassword());
+            }
+            if(user.getFirstName()!=null){
+                user1.setFirstName(user.getFirstName());
+            }
+            if(user.getLastName()!=null){
+                user1.setLastName(user.getLastName());
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public User findUserByUsername(String username){

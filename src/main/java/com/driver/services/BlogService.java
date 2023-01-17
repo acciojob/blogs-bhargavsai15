@@ -24,6 +24,8 @@ public class BlogService {
     @Autowired
     UserRepository userRepository1;
 
+    ImageService imageService;
+
     public List<Blog> showBlogs(){
         //find all blogs
         List<Blog> blogList;
@@ -33,7 +35,6 @@ public class BlogService {
 
     public void createAndReturnBlog(Integer userId, String title, String content) {
         //create a blog at the current time
-
         Date currentTime=new Date();
         User user=userRepository1.findById(userId).get();
 
@@ -41,15 +42,10 @@ public class BlogService {
         //updating the blog details
         blog.setUser(user);
         List<Blog> currentbBlogsList=user.getBlogList();
-        if(currentbBlogsList==null){
-            currentbBlogsList=new ArrayList<>();
-        }
         currentbBlogsList.add(blog);
         user.setBlogList(currentbBlogsList);
         //Updating the userInformation and changing its blogs
         userRepository1.save(user);
-        blogRepository1.save(blog);
-
     }
 
     public Blog findBlogById(int blogId){
@@ -61,15 +57,9 @@ public class BlogService {
     public void addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog after creating it
         Blog blog=blogRepository1.findById(blogId).get();
-        if(blog==null){
-            return;
-        }
-        List<Image> imageList=blog.getImageList();
-        if(imageList==null){
-            imageList=new ArrayList<>();
-        }
+        Image image=imageService.createAndReturn(blog,description,dimensions);
 
-        Image image=new Image(description,dimensions);
+        List<Image> imageList=blog.getImageList();
 
         image.setBlog(blog);
 
@@ -82,6 +72,10 @@ public class BlogService {
 
     public void deleteBlog(int blogId){
         //delete blog and corresponding images
-        blogRepository1.deleteById(blogId);
+        Blog blog=blogRepository1.findById(blogId).get();
+        if(blog!=null) {
+            blogRepository1.delete(blog);
+        }
     }
+
 }

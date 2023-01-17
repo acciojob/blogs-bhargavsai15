@@ -28,7 +28,8 @@ public class User{
 
     }
 
-    
+
+    //Adding Getters and Setters
     public List<Blog> getBlogList() {
         return this.blogList;
     }

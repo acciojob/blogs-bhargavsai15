@@ -34,6 +34,7 @@ public class BlogController {
         return new ResponseEntity<>(countOfBlogs, HttpStatus.OK);
     }
 
+
     @PostMapping
     public ResponseEntity createBlog(@RequestParam Integer userId ,
                                            @RequestParam String title,
@@ -67,6 +68,7 @@ public class BlogController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
 
 
